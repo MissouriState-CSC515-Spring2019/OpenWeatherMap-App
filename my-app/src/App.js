@@ -4,7 +4,7 @@ import './App.css';
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
 const zipcode = '65810';
 const countrycode = 'us';
-const url = 'api.openweathermap.org/data/2.5/weather?zip='+ zipcode + ',' + countrycode + '&appid=' + ApiKey;
+const url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + zipcode + ',' + countrycode + '&appid=' + ApiKey;
 
 
 class MyComponent extends React.Component {
