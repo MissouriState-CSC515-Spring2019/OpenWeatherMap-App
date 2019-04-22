@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
-const zipcode = '65810';
-const countrycode = 'us';
-const url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + zipcode + ',' + countrycode + '&appid=' + ApiKey;
-
+const ApiKey = "304b69dfc8fd594456d6556ba7d5be48";
+const zipcode = "65810";
+const countrycode = "us";
+const url =
+  "https://api.openweathermap.org/data/2.5/weather?zip=" +
+  zipcode +
+  "," +
+  countrycode +
+  "&appid=" +
+  ApiKey;
 
 class MyComponent extends React.Component {
   constructor(props) {
@@ -21,8 +26,8 @@ class MyComponent extends React.Component {
     fetch(url)
       .then(response => response.json())
       .then(
-        (result) => {
-          console.log(result)
+        result => {
+          console.log(result);
           this.setState({
             isLoaded: true,
             items: result.weather
@@ -31,13 +36,13 @@ class MyComponent extends React.Component {
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        (error) => {
+        error => {
           this.setState({
             isLoaded: true,
             error
           });
         }
-      )
+      );
   }
 
   render() {
@@ -47,9 +52,7 @@ class MyComponent extends React.Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return (
-        <p>Hello</p>
-      );
+      return <p>Hello</p>;
     }
   }
 }
