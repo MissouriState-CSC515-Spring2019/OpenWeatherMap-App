@@ -27,7 +27,7 @@ class FiveDay extends React.Component {
 
     render() {
         if (this.state.error) {
-            return <div>Error: {error.message}</div>;
+            return <div>Error: {this.state.error.message}</div>;
         } else if (!this.state.isLoaded) {
             return <div>Loading...</div>;
         } else {

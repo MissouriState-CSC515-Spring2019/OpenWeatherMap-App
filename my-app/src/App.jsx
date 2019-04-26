@@ -1,25 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import {
   Container,
-  Row,
-  Col,
   Button,
   Form,
   FormGroup,
-  Label,
   Input,
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavLink,
-  NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavItem
 } from 'reactstrap';
 import './App.css';
 import FiveDay from './components/5-day-weather/5day';
