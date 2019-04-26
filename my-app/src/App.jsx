@@ -139,7 +139,7 @@ class MyComponent extends React.Component {
 
           <Switch>
             <Route path="/" exact />
-            <Route path="/forecast" component={FiveDay} />
+            <Route path="/forecast" render={(props) => <FiveDay {...this.state} />} />
             <Route path="/UV" component={UVIndex} />
           </Switch>
         </Container>

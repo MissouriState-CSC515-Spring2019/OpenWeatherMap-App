@@ -14,7 +14,7 @@ class FiveDay extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://samples.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
+        fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
         .then( resp => resp.json())
         .then( results => {
             console.log(results);
@@ -27,12 +27,15 @@ class FiveDay extends React.Component {
 
     render() {
         if (this.state.error) {
-            return <div>Error: {error.message}</div>;
+            return <div>Error: {this.error.message}</div>;
         } else if (!this.state.isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>Whattup</div>
+                <div>
+                    <p>Testing response data (temp):</p>
+                    <div>{this.state.items.list[0].main.temp}</div>
+                </div>
             );
         }
     }
