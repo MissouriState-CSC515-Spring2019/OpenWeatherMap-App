@@ -20,6 +20,8 @@ class UVIndex extends React.Component {
     this.state = {
       error: null,
       loaded: false,
+      latitude: null,
+      longitute: null,
       zip: "",
       forecastIndex: [
         { date: "01-02-2016", value: "10.87" },
