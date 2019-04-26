@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react';m";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { 
   Container, 
   Row, 
@@ -21,6 +22,7 @@ import {
   DropdownItem 
 } from 'reactstrap';
 import './App.css';
+import FiveDay from './components/5-day-weather/5day';
 
 
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
@@ -127,11 +129,15 @@ class MyComponent extends React.Component {
               <NavLink href="./forecast/">5 Day Forecast</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="./radar/">UV</NavLink>
+              <NavLink href="./UV/">UV</NavLink>
             </NavItem>
           </Nav>
         </Navbar>
       </Container>
+
+      <Route path="/" exact component={MyComponent} />
+      <Route path="/forecast/" component={FiveDay} />
+      <Route path="/users/" component={Users} />
     );
   }
 }
