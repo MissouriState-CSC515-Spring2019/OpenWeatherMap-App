@@ -32,15 +32,15 @@
 }
 
 .sub-info {
-  height: 25% !important;
+  height: 15% !important;
 }
 
 .weather{
-    height: 50% !important;
+    height: 75% !important;
 }
 
 .other{
-    height: 50% !important;
+    height: 10% !important;
 }
 
 .container{

@@ -99,10 +99,10 @@ class FDForecast extends React.Component {
                       <Row className="padding-b sub-info cell-border">
                         <Col>
                           <Row>
-                            <Col className="other">
+                            <Col className="weather">
                               {"Low Temp: " + data.temp_min}
                             </Col>
-                            <Col className="other">
+                            <Col className="weather">
                               {"High Temp: " + data.temp_max}
                             </Col>
                           </Row>
