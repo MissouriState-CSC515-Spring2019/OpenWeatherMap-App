@@ -35,13 +35,48 @@ class MyComponent extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      key: ApiKey,
+      zip: zipcode,
+      items: null
     };
+
+    this.changeZip = this.changeZip.bind(this);
+    this.updateData = this.updateData.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  handleKeyPress(event) {
+    if (event.key === "Enter") {
+      this.updateData(event);
+    }
   }
 
   componentDidMount() {
-    fetch(url)
-      .then(response => response.json())
+    this.updateData()
+  }
+
+  changeZip(elem) {
+    elem.persist();
+    this.setState(
+      state => ({
+        zip : elem.target.value
+      })
+    );
+  }
+
+  updateData(elem) {
+    this.setState({
+      isLoaded: false,
+      error: null
+    });
+    if (elem) {
+      elem.preventDefault();
+    }
+    
+    fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&appid=${this.state.key}`)
+      .then(response => {
+        return response.json();
+      })
       .then(
         (result) => {
           console.log(result)
@@ -63,46 +98,42 @@ class MyComponent extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    } else {
-      return (
-        <Container>
-          <Navbar color="light" light expand="lg">
-            <NavbarBrand href="/">The Weather App</NavbarBrand>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/hourly/">Hourly Forecast</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/forecast/">5 Day Forecast</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/radar/">Weather Radar</NavLink>
-              </NavItem>
-            </Nav>
-          </Navbar>
-      
-          <Row>
-            <Col id="Title">The Weather App</Col>
-          </Row>
-    
-          <Row>
-            <Col sm="12" md={{ size: 6, offset: 3 }} id="ZipCode-Form">
+
+    return (
+      <Container>
+        <Navbar color="light" light expand="lg">
+          <NavbarBrand href="/">The Weather App</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
               <Form inline id="ZipCode-Form" >
                 <FormGroup>
-                  <Input id="ZipCode-Input" placeholder="ex. 65810"></Input>
-                  <Button type="submit"> Search </Button>
+                  <Input id="ZipCode-Input"
+                    placeholder="e.g. 65810"
+                    value={this.state.zip}
+                    onChange={this.changeZip}
+                    onKeyPress={this.handleKeyPress}
+                  ></Input>
+                  <Button 
+                    type="submit"
+                    onClick={this.updateData}
+                  > Search </Button>
                 </FormGroup>
               </Form>
-              </Col>
-            </Row>
-        </Container>
-      );
-    }
+            </NavItem>
+            <NavItem>
+              <NavLink href="./">Current Weather</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./forecast/">5 Day Forecast</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./radar/">UV</NavLink>
+            </NavItem>
+          </Nav>
+        </Navbar>
+      </Container>
+    );
   }
 }
+
 export default MyComponent;
