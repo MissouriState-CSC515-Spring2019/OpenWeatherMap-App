@@ -1,0 +1,48 @@
+.padding {
+  padding: 1%;
+}
+
+.padding-b {
+  padding-bottom: 1%;
+}
+
+.force-height {
+  height: 500px !important;
+}
+
+.forecast-border {
+  border: black 1px solid;
+  margin: 1px;
+}
+
+.cell-border {
+  border: black 1px solid;
+}
+
+.row-h {
+  height: 100%;
+}
+
+.row, .col{
+    height: 100%;
+}
+
+.main-info {
+  height: 75% !important;
+}
+
+.sub-info {
+  height: 25% !important;
+}
+
+.weather{
+    height: 50% !important;
+}
+
+.other{
+    height: 50% !important;
+}
+
+.container{
+    text-align: center;
+}
