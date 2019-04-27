@@ -26,6 +26,10 @@ class Weather extends React.Component {
         })
     }
 
+    componentConvertTemp(temp){
+        return Math.round((parseInt(temp, 10) - 273.15) * (9/5) + 32);
+    }
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.error.message}</div>;
