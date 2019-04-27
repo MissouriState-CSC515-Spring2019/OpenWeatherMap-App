@@ -83,7 +83,6 @@ class MyComponent extends React.Component {
       })
       .then(
         (result) => {
-          console.log(result)
           this.setState({
             isLoaded: true,
             items: result

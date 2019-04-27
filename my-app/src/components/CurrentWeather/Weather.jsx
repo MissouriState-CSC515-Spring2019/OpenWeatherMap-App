@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Container, Row, Col } from 'reactstrap';
+import '/Users/danielcourtney/CSC515/FinalProject/OpenWeatherMap-App/my-app/src/App.jsx';
 
 class Weather extends React.Component {
 
@@ -14,10 +16,9 @@ class Weather extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.props.zip},us&appid=${this.state.key}`)
         .then( resp => resp.json())
         .then( results => {
-            console.log(results);
             this.setState({
                 isLoaded: true,
                 items: results
@@ -32,11 +33,26 @@ class Weather extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>
-                    <p>Home Page</p>
-                    <p>Testing response data (temp):</p>
-                    <div>{this.state.items.list[0].main.temp}</div>
-                </div>
+                <Container>
+                    <Row className = "cityName">
+                        <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
+                    </Row>
+                    <Row>
+                        {/* TIM DO HERE */}
+                    </Row>
+                    <Row className = "weatherTable">
+                        <Col>High Temp</Col>
+                        <Col>Low Temp</Col>
+                        <Col>Humidity</Col>
+                        <Col>Pressure</Col>
+                    </Row>
+                    <Row>
+                        <Col>{this.state.items.main.temp_max}</Col>
+                        <Col>{this.state.items.main.temp_min}</Col>
+                        <Col>{this.state.items.main.humidity}</Col>
+                        <Col>{this.state.items.main.pressure}</Col>
+                    </Row>
+                </Container>
             );
         }
     }
