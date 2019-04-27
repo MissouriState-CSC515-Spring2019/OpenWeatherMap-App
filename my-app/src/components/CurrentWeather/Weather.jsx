@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
 import { Container, Row, Col } from 'reactstrap';
+=======
+import { Container, Row, Col, Table} from 'reactstrap';
+import './styles.css';
+
+>>>>>>> bf3c7b41e9e3fc0dd1a572200240d37afb7b239a
 
 class Weather extends React.Component {
 
@@ -78,7 +84,7 @@ class Weather extends React.Component {
             return (
                 <Container>
                     <Row className = "cityName">
-                        <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
+                        <Col><h1>Current Weather for {this.state.items.name}</h1></Col>
                     </Row>
                     <Row> 
                     {/* TIMS STUFF  */}
@@ -89,18 +95,24 @@ class Weather extends React.Component {
                         <Col>{this.state.items.weather[0].description}</Col>
                     {/* END TIMS STUFF */}
                     </Row>
-                    <Row className = "weatherTable">
-                        <Col>High Temp</Col>
-                        <Col>Low Temp</Col>
-                        <Col>Humidity</Col>
-                        <Col>Pressure</Col>
-                    </Row>
-                    <Row>
-                        <Col>{this.state.items.main.temp_max}</Col>
-                        <Col>{this.state.items.main.temp_min}</Col>
-                        <Col>{this.state.items.main.humidity}</Col>
-                        <Col>{this.state.items.main.pressure}</Col>
-                    </Row>
+                    <Table borderless>
+                        <thead>
+                            <tr>
+                                <th>High Temp</th>
+                                <th>Low Temp</th>
+                                <th>Humidity</th>
+                                <th>Pressure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
+                                <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
+                                <td>{this.state.items.main.humidity}</td>
+                                <td>{this.state.items.main.pressure}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </Container>
             );
         }
