@@ -24,6 +24,7 @@ import {
 import './App.css';
 import FiveDay from './components/5-day-weather/5day';
 import UVIndex from "./components/UVIndex/UVIndex";
+import Weather from "./components/Weather";
 
 
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
@@ -138,7 +139,7 @@ class MyComponent extends React.Component {
         
 
           <Switch>
-            <Route path="/" exact />
+            <Route path="/" exact render={(props) => <Weather {...this.state} />} />
             <Route path="/forecast" component={FiveDay} />
             <Route path="/UV" component={UVIndex} />
           </Switch>

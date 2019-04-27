@@ -27,12 +27,16 @@ class Weather extends React.Component {
 
     render() {
         if (this.state.error) {
-            return <div>Error: {this.state.error.message}</div>;
+            return <div>Error: {this.error.message}</div>;
         } else if (!this.state.isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>Whattup</div>
+                <div>
+                    <p>Home Page</p>
+                    <p>Testing response data (temp):</p>
+                    <div>{this.state.items.list[0].main.temp}</div>
+                </div>
             );
         }
     }
