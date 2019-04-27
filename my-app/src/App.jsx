@@ -109,6 +109,15 @@ class MyComponent extends React.Component {
             <NavbarBrand href="/">The Weather App</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
+                <NavLink><Link to="/">Current Weather</Link></NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink><Link to="/forecast">5 Day Forecast</Link></NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink><Link to="/uv">UV</Link></NavLink>
+              </NavItem>
+              <NavItem>
                 <Form inline id="ZipCode-Form" >
                   <FormGroup>
                     <Input id="ZipCode-Input"
@@ -123,15 +132,6 @@ class MyComponent extends React.Component {
                     > Search </Button>
                   </FormGroup>
                 </Form>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to="/">Current Weather</Link></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to="/forecast">5 Day Forecast</Link></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to="/uv">UV</Link></NavLink>
               </NavItem>
             </Nav>
           </Navbar>

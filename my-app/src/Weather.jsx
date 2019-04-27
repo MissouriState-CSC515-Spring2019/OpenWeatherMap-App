@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class FiveDay extends React.Component {
+class Weather extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,7 +14,7 @@ class FiveDay extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://samples.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
+        fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
         .then( resp => resp.json())
         .then( results => {
             console.log(results);
@@ -37,4 +37,4 @@ class FiveDay extends React.Component {
         }
     }
 }
-export default FiveDay;
+export default Weather;
