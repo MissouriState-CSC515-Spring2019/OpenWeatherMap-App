@@ -24,7 +24,7 @@ import {
 import './App.css';
 import FiveDay from './components/5-day-weather/5day';
 import UVIndex from "./components/UVIndex/UVIndex";
-import Weather from "./components/Weather";
+import Weather from "./components/CurrentWeather/Weather";
 
 
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
