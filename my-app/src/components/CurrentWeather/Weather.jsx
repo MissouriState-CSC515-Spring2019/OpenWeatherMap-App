@@ -80,12 +80,14 @@ class Weather extends React.Component {
                     <Row className = "cityName">
                         <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
                     </Row>
-                    <Row>
+                    <Row> 
+                    {/* TIMS STUFF  */}
                         <Col>Testing response data (temp): {this.componentConvertTemp(this.state.items.main.temp)}</Col>
                         <Col>{this.state.items.weather[0].main}
                             <img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/>
                         </Col>
                         <Col>{this.state.items.weather[0].description}</Col>
+                    {/* END TIMS STUFF */}
                     </Row>
                     <Row className = "weatherTable">
                         <Col>High Temp</Col>
