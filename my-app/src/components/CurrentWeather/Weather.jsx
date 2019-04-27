@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from 'reactstrap';
-import '/Users/danielcourtney/CSC515/FinalProject/OpenWeatherMap-App/my-app/src/App.jsx';
+import { Container, Row, Col, Table} from 'reactstrap';
+import './styles.css';
+
 
 class Weather extends React.Component {
 
@@ -39,23 +40,29 @@ class Weather extends React.Component {
             return (
                 <Container>
                     <Row className = "cityName">
-                        <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
+                        <Col><h1>Current Weather for {this.state.items.name}</h1></Col>
                     </Row>
                     <Row>
                         {/* TIM DO HERE */}
                     </Row>
-                    <Row className = "weatherTable">
-                        <Col>High Temp</Col>
-                        <Col>Low Temp</Col>
-                        <Col>Humidity</Col>
-                        <Col>Pressure</Col>
-                    </Row>
-                    <Row>
-                        <Col>{this.state.items.main.temp_max}</Col>
-                        <Col>{this.state.items.main.temp_min}</Col>
-                        <Col>{this.state.items.main.humidity}</Col>
-                        <Col>{this.state.items.main.pressure}</Col>
-                    </Row>
+                    <Table borderless>
+                        <thead>
+                            <tr>
+                                <th>High Temp</th>
+                                <th>Low Temp</th>
+                                <th>Humidity</th>
+                                <th>Pressure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
+                                <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
+                                <td>{this.state.items.main.humidity}</td>
+                                <td>{this.state.items.main.pressure}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </Container>
             );
         }
