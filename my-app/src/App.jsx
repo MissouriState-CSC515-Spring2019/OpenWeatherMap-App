@@ -82,7 +82,7 @@ class MyComponent extends React.Component {
       })
       .then(
         (result) => {
-          console.log(result)
+          //console.log(result)
           this.setState({
             isLoaded: true,
             items: result
@@ -139,7 +139,7 @@ class MyComponent extends React.Component {
 
           <Switch>
             <Route path="/" exact />
-            <Route path="/forecast" render={(props) => <FiveDay {...this.state} />} />
+            <Route path="/forecast/:zipcode" component={FiveDay}/>
             <Route path="/UV" component={UVIndex} />
           </Switch>
         </Container>
