@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import { Container, Row, Col } from 'reactstrap';
-=======
 import { Container, Row, Col, Table} from 'reactstrap';
 import './styles.css';
-
->>>>>>> bf3c7b41e9e3fc0dd1a572200240d37afb7b239a
 
 class Weather extends React.Component {
 
@@ -39,40 +34,54 @@ class Weather extends React.Component {
 
         if (iconId > 199 && iconId < 300){
             //thunderstorm
-            return "11d";
+            return <img src="http://openweathermap.org/img/w/11d.png" alt="Thunderstorm thumbnail"/>
+            // return "11d";
 
         } else if (iconId > 299 && iconId < 400){
             // drizzle
-            return "09d";
+            return <img src="http://openweathermap.org/img/w/09d.png" alt="Drizzle thumbnail"/>
+            // return "09d";
 
         } else if (iconId > 499 && iconId < 600){
             // rain
-            return "10d";
+            return <img src="http://openweathermap.org/img/w/10d.png" alt="Rain thumbnail"/>
+            // return "10d";
 
         } else if (iconId > 599 && iconId < 700){
             // snow
-            return "13d";
+            return <img src="http://openweathermap.org/img/w/13d.png" alt="Snow thumbnail"/>
+            // return "13d";
 
         } else if (iconId > 699 && iconId < 800){
             // atmosphere
-            return "50d";
+            return <img src="http://openweathermap.org/img/w/50d.png" alt="Atmosphere related weather condition thumbnail"/>
+            // return "50d";
 
-        } else if (iconId == 800){
+        } else if (iconId === 800){
             // clear
-            return "01d";
+            return <img src="http://openweathermap.org/img/w/01d.png" alt="Sunny thumbnail"/>
+            // return "01d";
 
-        }else if (iconId == 801){
+        }else if (iconId === 801){
             // some clouds
-            return "02d";
+            return <img src="http://openweathermap.org/img/w/02d.png" alt="Light-to-no Clouds thumbnail"/>
+            // return "02d";
 
-        } else if (iconId == 802){
+        } else if (iconId === 802){
             // more clouds
-            return "03d";
+            return <img src="http://openweathermap.org/img/w/03d.png" alt="medium clouds thumbnail"/>
+            // return "03d";
 
         } else {
             // all the clouds
-            return "04d";
+            return <img src="http://openweathermap.org/img/w/04d.png" alt="Very Cloudy thumbnail"/>
+            // return "04d";
         }
+    }
+
+    componentEpochConversion(epoch){
+        // This will convert any epoch time to just the time HH:mm:ss AM/PM
+        return new Date(epoch * 1000).toLocaleTimeString();
     }
 
     render() {
@@ -88,11 +97,21 @@ class Weather extends React.Component {
                     </Row>
                     <Row> 
                     {/* TIMS STUFF  */}
-                        <Col>Testing response data (temp): {this.componentConvertTemp(this.state.items.main.temp)}</Col>
-                        <Col>{this.state.items.weather[0].main}
-                            <img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/>
+                        <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col>
+                        <Col xs="auto">
+                            <Row>{this.state.items.weather[0].main}</Row>
+                            <Row>{this.componentGetIcon(this.state.items.weather[0].id)}</Row>
+                            {/* <Row><img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/></Row> */}
                         </Col>
-                        <Col>{this.state.items.weather[0].description}</Col>
+                        <Col xs="auto" className="capitalize">{this.state.items.weather[0].description}</Col>
+                        <Col>
+                            <Row>Sunrise</Row>
+                            <Row>{this.componentEpochConversion(this.state.items.sys.sunrise)}</Row>
+                        </Col>
+                        <Col>
+                            <Row>Sunset</Row>
+                            <Row>{this.componentEpochConversion(this.state.items.sys.sunset)}</Row>
+                        </Col>
                     {/* END TIMS STUFF */}
                     </Row>
                     <Table borderless>
