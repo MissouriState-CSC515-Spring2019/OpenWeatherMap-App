@@ -93,27 +93,39 @@ class Weather extends React.Component {
             return (
                 <Container>
                     <Row className = "cityName">
-                        <Col><h1>Current Weather for {this.state.items.name}</h1></Col>
+                        <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
                     </Row>
-                    <Row> 
+                    <Row>
+                        <Col className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)} {this.componentConvertTemp(this.state.items.main.temp)}&#176;</Col>
+                        <Col></Col>
+                        <Col></Col>
+                        <Col></Col>
+                    </Row>
+                    {/* <Row>
+                        <Col className="capitalize">{this.state.items.weather[0].description}</Col>
+                    </Row> */}
+                  
                     {/* TIMS STUFF  */}
-                        <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col>
-                        <Col xs="auto">
-                            <Row>{this.state.items.weather[0].main}</Row>
-                            <Row>{this.componentGetIcon(this.state.items.weather[0].id)}</Row>
+                        {/* <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col> */}
+                       
+                            {/* <Row>{this.state.items.weather[0].main}</Row> */}
+                            
+                            
                             {/* <Row><img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/></Row> */}
-                        </Col>
+                     
+                    {/* <Row>
                         <Col xs="auto" className="capitalize">{this.state.items.weather[0].description}</Col>
-                        <Col>
+                    </Row> */}
+                        {/* <Col>
                             <Row>Sunrise</Row>
                             <Row>{this.componentEpochConversion(this.state.items.sys.sunrise)}</Row>
                         </Col>
                         <Col>
                             <Row>Sunset</Row>
                             <Row>{this.componentEpochConversion(this.state.items.sys.sunset)}</Row>
-                        </Col>
+                        </Col> */}
                     {/* END TIMS STUFF */}
-                    </Row>
+                  
                     <Table borderless>
                         <thead>
                             <tr>
@@ -121,14 +133,18 @@ class Weather extends React.Component {
                                 <th>Low Temp</th>
                                 <th>Humidity</th>
                                 <th>Pressure</th>
+                                <th>Sun Rise</th>
+                                <th>Sun Set</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
                                 <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
-                                <td>{this.state.items.main.humidity}</td>
+                                <td>{this.state.items.main.humidity}%</td>
                                 <td>{this.state.items.main.pressure}</td>
+                                <td>{this.componentEpochConversion(this.state.items.sys.sunrise)}</td>
+                                <td>{this.componentEpochConversion(this.state.items.sys.sunset)}</td>
                             </tr>
                         </tbody>
                     </Table>
