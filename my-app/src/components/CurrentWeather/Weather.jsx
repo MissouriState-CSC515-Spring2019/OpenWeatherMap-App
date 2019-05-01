@@ -151,7 +151,7 @@ class Weather extends React.Component {
                                     <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
                                     <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
                                     <td>{this.state.items.main.humidity}%</td>
-                                    <td>{this.state.items.wind.speed} mph</td>
+                                    <td>{Math.round(this.state.items.wind.speed * 2.237)} mph</td>
                                     <td>{this.componentEpochConversion(this.state.items.sys.sunrise)}</td>
                                     <td>{this.componentEpochConversion(this.state.items.sys.sunset)}</td>
                                 </tr>

@@ -106,7 +106,7 @@ class MyComponent extends React.Component {
     return (
       <Router>
         <Container>
-          <Navbar color="light" light expand="lg">
+          <Navbar class="navbar" color="light" light expand="lg">
             <NavbarBrand id="icon" href="/">The Weather App</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
