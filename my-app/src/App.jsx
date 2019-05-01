@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import './App.css';
 import {
   Container,
   Row,
@@ -106,7 +107,7 @@ class MyComponent extends React.Component {
       <Router>
         <Container>
           <Navbar color="light" light expand="lg">
-            <NavbarBrand href="/">The Weather App</NavbarBrand>
+            <NavbarBrand id="icon" href="/">The Weather App</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink><Link to="/">Current Weather</Link></NavLink>
