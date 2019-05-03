@@ -1,0 +1,9 @@
+#root{
+    background-color: #282C34;
+    height: 100vh;
+}
+
+.navbar{
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}

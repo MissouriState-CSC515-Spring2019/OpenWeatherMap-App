@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import './App.css';
 import {
   Container,
   Row,
@@ -24,6 +25,7 @@ import {
 import './App.css';
 import FiveDay from './components/5-day-weather/5day';
 import UVIndex from "./components/UVIndex/UVIndex";
+import Weather from "./components/CurrentWeather/Weather";
 
 
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
@@ -82,7 +84,6 @@ class MyComponent extends React.Component {
       })
       .then(
         (result) => {
-          console.log(result)
           this.setState({
             isLoaded: true,
             items: result
@@ -105,9 +106,18 @@ class MyComponent extends React.Component {
     return (
       <Router>
         <Container>
-          <Navbar color="light" light expand="lg">
-            <NavbarBrand href="/">The Weather App</NavbarBrand>
+          <Navbar class="navbar" color="light" light expand="lg">
+            <NavbarBrand id="icon" href="/">The Weather App</NavbarBrand>
             <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink><Link to="/">Current Weather</Link></NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink><Link to="/forecast">5 Day Forecast</Link></NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink><Link to="/uv">UV</Link></NavLink>
+              </NavItem>
               <NavItem>
                 <Form inline id="ZipCode-Form" >
                   <FormGroup>
@@ -124,21 +134,12 @@ class MyComponent extends React.Component {
                   </FormGroup>
                 </Form>
               </NavItem>
-              <NavItem>
-                <NavLink><Link to="/">Current Weather</Link></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to="/forecast">5 Day Forecast</Link></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to="/uv">UV</Link></NavLink>
-              </NavItem>
             </Nav>
           </Navbar>
         
 
           <Switch>
-            <Route path="/" exact />
+            <Route path="/" exact render={(props) => <Weather {...this.state} />} />
             <Route path="/forecast" component={FiveDay} />
             <Route path="/UV" component={UVIndex} />
           </Switch>
