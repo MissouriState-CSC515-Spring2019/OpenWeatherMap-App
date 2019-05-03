@@ -105,8 +105,8 @@ class Weather extends React.Component {
                             <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
                         </Row>
                         <Row>
-                            <Col className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)} {this.componentConvertTemp(this.state.items.main.temp)}&#176;</Col>
-                            <Col></Col>
+                            <Col className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)}</Col>
+                            <Col className="weatherIcon capitalize">{this.componentConvertTemp(this.state.items.main.temp)}&#176; {this.state.items.weather[0].description}</Col>
                             <Col></Col>
                             <Col></Col>
                         </Row>
