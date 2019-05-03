@@ -3,24 +3,15 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import './App.css';
 import {
   Container,
-  Row,
-  Col,
   Button,
   Form,
   FormGroup,
-  Label,
   Input,
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavLink,
-  NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavItem
 } from 'reactstrap';
 import './App.css';
 import FiveDay from './components/5-day-weather/5day';
@@ -106,7 +97,7 @@ class MyComponent extends React.Component {
     return (
       <Router>
         <Container>
-          <Navbar class="navbar" color="light" light expand="lg">
+          <Navbar className="navbar" color="light" light expand="lg">
             <NavbarBrand id="icon" href="/">The Weather App</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>

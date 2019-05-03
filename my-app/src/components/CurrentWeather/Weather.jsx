@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Table} from 'reactstrap';
+import { Container, Row, Card, Col, Table} from 'reactstrap';
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -99,65 +99,67 @@ class Weather extends React.Component {
         } else {
             return (
                 <Container>
-                    <div className="topPad"></div>
-                    <div className = "overall">
-                        <Row className = "cityName">
-                            <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
-                        </Row>
-                        <Row>
-                            <Col className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)} {this.componentConvertTemp(this.state.items.main.temp)}&#176;</Col>
-                            <Col></Col>
-                            <Col></Col>
-                            <Col></Col>
-                        </Row>
-                        {/* <Row>
-                            <Col className="capitalize">{this.state.items.weather[0].description}</Col>
-                        </Row> */}
-                    
-                        {/* TIMS STUFF  */}
-                            {/* <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col> */}
+                    <Card>
+                        <div className="topPad"></div>
+                        <div className = "overall">
+                            <Row className = "cityName">
+                                <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
+                            </Row>
+                            <Row>
+                                <Col className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)} {this.componentConvertTemp(this.state.items.main.temp)}&#176;</Col>
+                                <Col></Col>
+                                <Col></Col>
+                                <Col></Col>
+                            </Row>
+                            {/* <Row>
+                                <Col className="capitalize">{this.state.items.weather[0].description}</Col>
+                            </Row> */}
                         
-                                {/* <Row>{this.state.items.weather[0].main}</Row> */}
-                                
-                                
-                                {/* <Row><img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/></Row> */}
+                            {/* TIMS STUFF  */}
+                                {/* <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col> */}
+                            
+                                    {/* <Row>{this.state.items.weather[0].main}</Row> */}
+                                    
+                                    
+                                    {/* <Row><img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/></Row> */}
+                            
+                            {/* <Row>
+                                <Col xs="auto" className="capitalize">{this.state.items.weather[0].description}</Col>
+                            </Row> */}
+                                {/* <Col>
+                                    <Row>Sunrise</Row>
+                                    <Row>{this.componentEpochConversion(this.state.items.sys.sunrise)}</Row>
+                                </Col>
+                                <Col>
+                                    <Row>Sunset</Row>
+                                    <Row>{this.componentEpochConversion(this.state.items.sys.sunset)}</Row>
+                                </Col> */}
+                            {/* END TIMS STUFF */}
                         
-                        {/* <Row>
-                            <Col xs="auto" className="capitalize">{this.state.items.weather[0].description}</Col>
-                        </Row> */}
-                            {/* <Col>
-                                <Row>Sunrise</Row>
-                                <Row>{this.componentEpochConversion(this.state.items.sys.sunrise)}</Row>
-                            </Col>
-                            <Col>
-                                <Row>Sunset</Row>
-                                <Row>{this.componentEpochConversion(this.state.items.sys.sunset)}</Row>
-                            </Col> */}
-                        {/* END TIMS STUFF */}
-                    
-                        <Table className ="weatherTable"dark>
-                            <thead>
-                                <tr>
-                                    <th>High Temp</th>
-                                    <th>Low Temp</th>
-                                    <th>Humidity</th>
-                                    <th>Wind</th>
-                                    <th>Sun Rise</th>
-                                    <th>Sun Set</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
-                                    <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
-                                    <td>{this.state.items.main.humidity}%</td>
-                                    <td>{Math.round(this.state.items.wind.speed * 2.237)} mph</td>
-                                    <td>{this.componentEpochConversion(this.state.items.sys.sunrise)}</td>
-                                    <td>{this.componentEpochConversion(this.state.items.sys.sunset)}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
+                            <Table className ="weatherTable"dark>
+                                <thead>
+                                    <tr>
+                                        <th>High Temp</th>
+                                        <th>Low Temp</th>
+                                        <th>Humidity</th>
+                                        <th>Wind</th>
+                                        <th>Sun Rise</th>
+                                        <th>Sun Set</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
+                                        <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
+                                        <td>{this.state.items.main.humidity}%</td>
+                                        <td>{Math.round(this.state.items.wind.speed * 2.237)} mph</td>
+                                        <td>{this.componentEpochConversion(this.state.items.sys.sunrise)}</td>
+                                        <td>{this.componentEpochConversion(this.state.items.sys.sunset)}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </div>
+                    </Card>
                 </Container>
             );
         }
