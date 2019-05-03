@@ -14,7 +14,7 @@ class FiveDay extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://samples.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
+        fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${this.props.zip},us&appid=${this.state.key}`)
         .then( resp => resp.json())
         .then( results => {
             console.log(results);
@@ -32,7 +32,10 @@ class FiveDay extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>Whattup</div>
+                <div>Whattup
+                    Test
+                    
+                </div>
             );
         }
     }
