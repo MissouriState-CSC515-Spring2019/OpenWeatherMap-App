@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import './App.css';
+import "./App.css";
 import {
   Container,
   Button,
@@ -12,18 +12,22 @@ import {
   Nav,
   NavLink,
   NavItem
-} from 'reactstrap';
-import './App.css';
-import FiveDay from './components/5-day-weather/5day';
+} from "reactstrap";
+import "./App.css";
+import FiveDay from "./components/5-day-weather/5day";
 import UVIndex from "./components/UVIndex/UVIndex";
 import Weather from "./components/CurrentWeather/Weather";
 
-
-const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
-const zipcode = '65810';
-const countrycode = 'us';
-const url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + zipcode + ',' + countrycode + '&appid=' + ApiKey;
-
+const ApiKey = "304b69dfc8fd594456d6556ba7d5be48";
+const zipcode = "65810";
+const countrycode = "us";
+const url =
+  "https://api.openweathermap.org/data/2.5/weather?zip=" +
+  zipcode +
+  "," +
+  countrycode +
+  "&appid=" +
+  ApiKey;
 
 class MyComponent extends React.Component {
   constructor(props) {
@@ -48,16 +52,14 @@ class MyComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.updateData()
+    this.updateData();
   }
 
   changeZip(elem) {
     elem.persist();
-    this.setState(
-      state => ({
-        zip: elem.target.value
-      })
-    );
+    this.setState(state => ({
+      zip: elem.target.value
+    }));
   }
 
   updateData(elem) {
@@ -69,12 +71,16 @@ class MyComponent extends React.Component {
       elem.preventDefault();
     }
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&appid=${this.state.key}`)
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?zip=${
+        this.state.zip
+      },us&appid=${this.state.key}`
+    )
       .then(response => {
         return response.json();
       })
       .then(
-        (result) => {
+        result => {
           this.setState({
             isLoaded: true,
             items: result
@@ -83,56 +89,67 @@ class MyComponent extends React.Component {
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        (error) => {
+        error => {
           this.setState({
             isLoaded: true,
             error
           });
         }
-      )
+      );
   }
 
   render() {
-
     return (
       <Router>
         <Container>
           <Navbar class="navbar" color="light" light expand="lg">
-            <NavbarBrand id="icon" href="/">The Weather App</NavbarBrand>
+            <NavbarBrand id="icon" href="/">
+              The Weather App
+            </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Link to="/">Current Weather</Link></NavLink>
+                <NavLink>
+                  <Link to="/">Current Weather</Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink><Link to="/forecast">5 Day Forecast</Link></NavLink>
+                <NavLink>
+                  <Link to="/forecast">5 Day Forecast</Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink><Link to="/uv">UV</Link></NavLink>
+                <NavLink>
+                  <Link to="/uv">UV</Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <Form inline id="ZipCode-Form" >
+                <Form inline id="ZipCode-Form">
                   <FormGroup>
-                    <Input id="ZipCode-Input"
+                    <Input
+                      id="ZipCode-Input"
                       placeholder="e.g. 65810"
                       value={this.state.zip}
                       onChange={this.changeZip}
                       onKeyPress={this.handleKeyPress}
-                    ></Input>
-                    <Button
-                      type="submit"
-                      onClick={this.updateData}
-                    > Search </Button>
+                    />
+                    <Button type="submit" onClick={this.updateData}>
+                      {" "}
+                      Search{" "}
+                    </Button>
                   </FormGroup>
                 </Form>
               </NavItem>
             </Nav>
           </Navbar>
-        
 
           <Switch>
-            <Route path="/" exact render={(props) => <Weather {...this.state} />} />
+            <Route
+              path="/"
+              exact
+              render={props => <Weather {...this.state} />}
+            />
             <Route path="/forecast" component={FiveDay} />
-            <Route path="/UV" component={UVIndex} />
+            <Route path="/UV" render={props => <UVIndex {...this.state} />} />
           </Switch>
         </Container>
       </Router>
