@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./5day.css";
 
 class FiveDay extends React.Component {
 
@@ -13,6 +14,10 @@ class FiveDay extends React.Component {
             key: '304b69dfc8fd594456d6556ba7d5be48',
             zipcode: params.zipcode === "" ? "65810" : params.zipcode
         };
+    }
+
+    componentConvertTemp(temp){
+        return Math.round((parseInt(temp, 10) - 273.15) * (9/5) + 32);
     }
 
     componentDidMount() {
@@ -40,11 +45,45 @@ class FiveDay extends React.Component {
             return <div>Loading...</div>;
         } else {
             if(this.state.items.cod === "200"){
+                var weatherMap = new Map();
+                var days = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
+
+                //Mapping 5 day forcast temps together for average calcs
+                this.state.items.list.forEach(el => {
+                    var date = new Date(el.dt_txt);
+                    var day = days[date.getDay()];
+                    if(!weatherMap.get(day)){
+                        weatherMap.set(day, [this.componentConvertTemp(el.main.temp)]);
+                    }else{
+                        var currentList = weatherMap.get(day);
+                        currentList.push(this.componentConvertTemp(el.main.temp));
+                        weatherMap.set(day, currentList);
+                    }
+                });
+                //console.log(weatherMap);
+                
                 return (
-                    <div>
-                        <p>Testing response data (temp):</p>
-                        <div>{this.state.items.list[0].main.temp}</div>
-                        <div>{this.state.items.city.name}</div>
+                    <div className="mainContainer">
+                        {/* <p>Testing response data (temp):</p> */}
+                        {/* <div>{this.componentConvertTemp(this.state.items.list[0].main.temp)}</div> */}
+                        {/* <div>{this.state.items.city.name}</div> */}
+                        
+                        <table className="weatherTable">
+                            <thead>Five Day Forcast for {this.state.items.city.name}</thead>
+                            <tbody>
+                                <tr className="forcastDaysRow">
+                                    {Array.from(weatherMap.keys()).map(key => {
+                                        return (
+                                            <td>
+                                                <tr>{key}</tr>
+                                                <tr>{weatherMap.get(key)}</tr>
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 );
             } else if (this.state.items.cod === "404"){
