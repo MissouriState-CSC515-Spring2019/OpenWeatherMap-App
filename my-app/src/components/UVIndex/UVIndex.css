@@ -10,6 +10,10 @@
     background-color: lightgrey;
 }
 
+.roundedLoading {
+    border-radius: 5px;
+}
+
 Table, thead, th, tr, td{
     border-color: black !important;
     border-width: 1px !important;

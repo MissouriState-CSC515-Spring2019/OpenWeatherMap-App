@@ -103,7 +103,8 @@ class UVIndex extends React.Component {
                 <tbody>
                   <tr>
                     <td className="center">
-                      Failed to load UV Index information.
+                      Failed to load UV Index information. Please make sure the
+                      zip code is valid.
                     </td>
                   </tr>
                 </tbody>
@@ -121,7 +122,12 @@ class UVIndex extends React.Component {
                 <tbody>
                   <tr>
                     <td className="center">
-                      <img src={require("./loading.gif")} alt="Loading" />
+                      <div>Loading UV Index information.</div>
+                      <img
+                        className="roundedLoading"
+                        src={require("./loading.gif")}
+                        alt="Loading"
+                      />
                     </td>
                   </tr>
                 </tbody>
