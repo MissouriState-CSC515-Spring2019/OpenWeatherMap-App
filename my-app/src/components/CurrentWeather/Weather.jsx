@@ -1,35 +1,31 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Table} from 'reactstrap';
 import './styles.css';
-<<<<<<< HEAD
-=======
 import 'bootstrap/dist/css/bootstrap.min.css';
->>>>>>> master
 
 class Weather extends React.Component {
 
     constructor(props) {
         super(props);
-        
+        const { match: { params } } = this.props;
+
         this.state = {
             error: null,
             isLoaded: false,
             results: null,
             key: '304b69dfc8fd594456d6556ba7d5be48',
+            zip: params.zipcode === "" ? "65810" : params.zipcode
         };
     }
-<<<<<<< HEAD
-=======
     // componentDidUpdate(prevProps){
         
     //     if(this.props.zip !== prevProps.zip){
     //         this.props.zip = prevProps.zip;
     //     }
     // }
->>>>>>> master
 
     componentDidMount() {
-        fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.props.zip},us&appid=${this.state.key}`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&appid=${this.state.key}`)
         .then( resp => resp.json())
         .then( results => {
             this.setState({
@@ -105,64 +101,6 @@ class Weather extends React.Component {
         } else {
             return (
                 <Container>
-<<<<<<< HEAD
-                    <Row className = "cityName">
-                        <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
-                    </Row>
-                    <Row>
-                        <Col className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)} {this.componentConvertTemp(this.state.items.main.temp)}&#176;</Col>
-                        <Col></Col>
-                        <Col></Col>
-                        <Col></Col>
-                    </Row>
-                    {/* <Row>
-                        <Col className="capitalize">{this.state.items.weather[0].description}</Col>
-                    </Row> */}
-                  
-                    {/* TIMS STUFF  */}
-                        {/* <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col> */}
-                       
-                            {/* <Row>{this.state.items.weather[0].main}</Row> */}
-                            
-                            
-                            {/* <Row><img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/></Row> */}
-                     
-                    {/* <Row>
-                        <Col xs="auto" className="capitalize">{this.state.items.weather[0].description}</Col>
-                    </Row> */}
-                        {/* <Col>
-                            <Row>Sunrise</Row>
-                            <Row>{this.componentEpochConversion(this.state.items.sys.sunrise)}</Row>
-                        </Col>
-                        <Col>
-                            <Row>Sunset</Row>
-                            <Row>{this.componentEpochConversion(this.state.items.sys.sunset)}</Row>
-                        </Col> */}
-                    {/* END TIMS STUFF */}
-                  
-                    <Table borderless>
-                        <thead>
-                            <tr>
-                                <th>High Temp</th>
-                                <th>Low Temp</th>
-                                <th>Humidity</th>
-                                <th>Pressure</th>
-                                <th>Sun Rise</th>
-                                <th>Sun Set</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{this.componentConvertTemp(this.state.items.main.temp_max)}&#176;</td>
-                                <td>{this.componentConvertTemp(this.state.items.main.temp_min)}&#176;</td>
-                                <td>{this.state.items.main.humidity}%</td>
-                                <td>{this.state.items.main.pressure}</td>
-                                <td>{this.componentEpochConversion(this.state.items.sys.sunrise)}</td>
-                                <td>{this.componentEpochConversion(this.state.items.sys.sunset)}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-=======
                     <div className="topPad"></div>
                     <div className = "overall">
                         <Row className = "cityName">
@@ -222,7 +160,6 @@ class Weather extends React.Component {
                             </tbody>
                         </Table>
                     </div>
->>>>>>> master
                 </Container>
             );
         }

@@ -31,6 +31,12 @@ class MyComponent extends React.Component {
   constructor(props) {
     super(props);
     let url_zip = window.location.pathname.slice(window.location.pathname.lastIndexOf("/") + 1, window.location.pathname.length);
+  
+    if (url_zip.length !== 5 || 
+        !/^\d+$/.test(url_zip)) {
+      url_zip = "65810";
+      history.push("65810");
+    }
     this.state = {
       error: null,
       isLoaded: false,
@@ -74,15 +80,15 @@ class MyComponent extends React.Component {
 
   updateData(elem) {
     elem.preventDefault();
-    if (this.state.zip.length !== 5) {
+    if (this.state.zip.length !== 5 ||
+        !/^\d+$/.test(this.state.zip)) {
       alert("Ivalid zip code");
       return;
+    } else {
+      this.setState({
+        redirect: true
+      })
     }
-    
-
-    this.setState({
-      redirect: true
-    })
   }
 
   render() {
@@ -98,6 +104,7 @@ class MyComponent extends React.Component {
         </Router>
       )
     }
+
     return (
       <Router history={history}>
         <Container>
@@ -107,19 +114,13 @@ class MyComponent extends React.Component {
             </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink>
-                  <Link to="/">Current Weather</Link>
-                </NavLink>
+                <NavLink><Link to={"/currentweather/" + this.state.zip}>Current Weather</Link></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink>
-                  <Link to="/forecast">5 Day Forecast</Link>
-                </NavLink>
+                <NavLink><Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink>
-                  <Link to="/uv">UV</Link>
-                </NavLink>
+                <NavLink><Link to={"/uv/" + this.state.zip}>UV</Link></NavLink>
               </NavItem>
               <NavItem>
                 <Form inline id="ZipCode-Form">
@@ -137,15 +138,6 @@ class MyComponent extends React.Component {
                   </FormGroup>
                 </Form>
               </NavItem>
-              <NavItem>
-                <NavLink><Link to={"/currentweather/" + this.state.zip}>Current Weather</Link></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Link to={"/uv/" + this.state.zip}>UV</Link></NavLink>
-              </NavItem>
             </Nav>
           </Navbar>
 
@@ -154,6 +146,9 @@ class MyComponent extends React.Component {
               <Redirect to="/currentweather/65810"/>
             )}/>
             <Route path="/currentweather/:zipcode" component={Weather} />
+            <Route path="/currentweather/" exact render={() => (
+              <Redirect to="/currentweather/65810"/>
+            )}/>
             <Route path="/forecast/" exact render={() => (
               <Redirect to="/forecast/65810"/>
             )}/>
