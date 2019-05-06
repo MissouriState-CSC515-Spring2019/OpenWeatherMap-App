@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "./App.css";
@@ -22,9 +22,6 @@ import Weather from "./components/CurrentWeather/Weather";
 const history = createBrowserHistory();
 
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
-const zipcode = '65810';
-const countrycode = 'us';
-const url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + zipcode + ',' + countrycode + '&appid=' + ApiKey;
 
 
 class MyComponent extends React.Component {
@@ -114,13 +111,13 @@ class MyComponent extends React.Component {
             </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Link to={"/currentweather/" + this.state.zip}>Current Weather</Link></NavLink>
+                <Link to={"/currentweather/" + this.state.zip}>Current Weather</Link>
               </NavItem>
               <NavItem>
-                <NavLink><Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link></NavLink>
+                <Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link>
               </NavItem>
               <NavItem>
-                <NavLink><Link to={"/uv/" + this.state.zip}>UV</Link></NavLink>
+                <Link to={"/uv/" + this.state.zip}>UV</Link>
               </NavItem>
               <NavItem>
                 <Form inline id="ZipCode-Form">
