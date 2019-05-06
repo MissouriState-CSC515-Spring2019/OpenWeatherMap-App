@@ -6,12 +6,13 @@ class FiveDay extends React.Component {
     constructor(props) {
         super(props);
         const { match: { params } } = this.props;
+
         this.state = {
             error: null,
             isLoaded: false,
             results: null,
             key: '304b69dfc8fd594456d6556ba7d5be48',
-            zipcode: params.zipcode
+            zipcode: params.zipcode === "" ? "65810" : params.zipcode
         };
     }
 
@@ -20,19 +21,22 @@ class FiveDay extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${this.state.zipcode},us&appid=${this.state.key}`)
-        .then( resp => resp.json())
-        .then( results => {
-            console.log("fetched correctly");
-            console.log(results);
-            this.setState({
-                isLoaded: true,
-                items: results
-            })
-        }).catch(err => {
-                this.setState = {error: true};
-        })
+        this.update()
     }
+
+    update() {
+        fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${this.state.zipcode},us&appid=${this.state.key}`)
+            .then(resp => resp.json())
+            .then(results => {
+                this.setState({
+                    isLoaded: true,
+                    items: results
+                })
+            }).catch(err => {
+                this.setState = { error: true };
+            })
+    }
+    
 
     render() {
         if (this.state.error) {
