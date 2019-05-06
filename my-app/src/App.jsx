@@ -111,13 +111,13 @@ class MyComponent extends React.Component {
             </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to={"/currentweather/" + this.state.zip}>Current Weather</Link>
+                <NavLink><Link to={"/currentweather/" + this.state.zip}>Current Weather</Link></NavLink>
               </NavItem>
               <NavItem>
-                <Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link>
+                <NavLink><Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link></NavLink>
               </NavItem>
               <NavItem>
-                <Link to={"/uv/" + this.state.zip}>UV</Link>
+                <NavLink><Link to={"/uv/" + this.state.zip}>UV</Link></NavLink>
               </NavItem>
               <NavItem>
                 <Form inline id="ZipCode-Form">
