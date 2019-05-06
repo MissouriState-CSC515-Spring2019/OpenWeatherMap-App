@@ -1,9 +1,4 @@
-.cityName{
-    padding-top:30px;
-}
-
-
-.tableWell{
+.cityName {
     background-color: #F8F9FA;
     border-radius: 5px;
 }
@@ -20,3 +15,17 @@
     width: 150px;
     height: 150px;
 }
+
+.overall{
+    background-color: #F8F9FA;
+    padding-bottom: 30px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+    
+}
+
+.topPad{
+    padding-bottom: 30px;
+}
+

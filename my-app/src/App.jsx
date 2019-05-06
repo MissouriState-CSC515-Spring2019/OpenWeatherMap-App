@@ -1,29 +1,21 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import "./App.css";
 import {
   Container,
-  Row,
-  Col,
   Button,
   Form,
   FormGroup,
-  Label,
   Input,
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavLink,
-  NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from 'reactstrap';
-import './App.css';
-import FiveDay from './components/5-day-weather/5day';
+  NavItem
+} from "reactstrap";
+import "./App.css";
+import FiveDay from "./components/5-day-weather/5day";
 import UVIndex from "./components/UVIndex/UVIndex";
 import Weather from "./components/CurrentWeather/Weather";
 
@@ -75,11 +67,9 @@ class MyComponent extends React.Component {
 
   changeZip(elem) {
     elem.persist();
-    this.setState(
-      state => ({
-        zip: elem.target.value
-      })
-    );
+    this.setState(state => ({
+      zip: elem.target.value
+    }));
   }
 
   updateData(elem) {
@@ -111,22 +101,39 @@ class MyComponent extends React.Component {
     return (
       <Router history={history}>
         <Container>
-          <Navbar color="light" light expand="lg">
-            <NavbarBrand href="/">The Weather App</NavbarBrand>
+          <Navbar class="navbar" color="light" light expand="lg">
+            <NavbarBrand id="icon" href="/">
+              The Weather App
+            </NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Form inline id="ZipCode-Form" >
+                <NavLink>
+                  <Link to="/">Current Weather</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/forecast">5 Day Forecast</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/uv">UV</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <Form inline id="ZipCode-Form">
                   <FormGroup>
-                    <Input id="ZipCode-Input"
+                    <Input
+                      id="ZipCode-Input"
                       placeholder="e.g. 65810"
                       value={this.state.zip}
                       onChange={this.changeZip}
                       onKeyPress={this.handleKeyPress}
-                    ></Input>
-                    <Button
-                      type="submit"
-                      onClick={this.updateData}
-                    > Search </Button>
+                    />
+                    <Button type="submit" onClick={this.updateData}>
+                      Search
+                    </Button>
                   </FormGroup>
                 </Form>
               </NavItem>
@@ -141,7 +148,6 @@ class MyComponent extends React.Component {
               </NavItem>
             </Nav>
           </Navbar>
-        
 
           <Switch>
             <Route path="/" exact render={() => (
