@@ -4,8 +4,10 @@ import "./sun.jpeg";
 import { Table, Row, Col, Container } from "reactstrap";
 
 class UVIndex extends React.Component {
-  constructor(properties) {
-    super(properties);
+  constructor(props) {
+    super(props);
+    const { match: { params } } = this.props;
+
     this.state = {
       error: null,
       apiKey: "304b69dfc8fd594456d6556ba7d5be48",
@@ -14,6 +16,10 @@ class UVIndex extends React.Component {
       loaded: false,
       latitude: "",
       longitute: "",
+<<<<<<< HEAD
+=======
+      zip: params.zipcode === "" ? "65810" : params.zipcode,
+>>>>>>> Elliott
       forecastIndex: []
     };
   }

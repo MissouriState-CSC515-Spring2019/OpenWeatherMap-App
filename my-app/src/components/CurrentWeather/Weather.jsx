@@ -7,12 +7,14 @@ class Weather extends React.Component {
 
     constructor(props) {
         super(props);
-        
+        const { match: { params } } = this.props;
+
         this.state = {
             error: null,
             isLoaded: false,
             results: null,
             key: '304b69dfc8fd594456d6556ba7d5be48',
+            zip: params.zipcode === "" ? "65810" : params.zipcode
         };
     }
     // componentDidUpdate(prevProps){
@@ -23,7 +25,7 @@ class Weather extends React.Component {
     // }
 
     componentDidMount() {
-        fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.props.zip},us&appid=${this.state.key}`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&appid=${this.state.key}`)
         .then( resp => resp.json())
         .then( results => {
             this.setState({
