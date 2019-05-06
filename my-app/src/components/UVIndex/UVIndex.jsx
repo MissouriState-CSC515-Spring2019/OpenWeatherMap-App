@@ -100,7 +100,7 @@ class UVIndex extends React.Component {
           <Row>
             <Col>
               <Table>
-                <tbody>
+                <tbody className="table-color">
                   <tr>
                     <td className="center">
                       Failed to load UV Index information. Please make sure the
@@ -119,7 +119,7 @@ class UVIndex extends React.Component {
           <Row>
             <Col>
               <Table>
-                <tbody>
+                <tbody className="table-color">
                   <tr>
                     <td className="center">
                       <div>Loading UV Index information.</div>
