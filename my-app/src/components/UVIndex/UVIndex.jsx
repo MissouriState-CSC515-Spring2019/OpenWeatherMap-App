@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./UVIndex.css";
 import "./sun.jpeg";
 import { Table, Row, Col, Container } from "reactstrap";
@@ -6,7 +6,9 @@ import { Table, Row, Col, Container } from "reactstrap";
 class UVIndex extends React.Component {
   constructor(props) {
     super(props);
-    const { match: { params } } = this.props;
+    const {
+      match: { params }
+    } = this.props;
 
     this.state = {
       error: null,
@@ -16,19 +18,19 @@ class UVIndex extends React.Component {
       loaded: false,
       latitude: "",
       longitute: "",
-<<<<<<< HEAD
-=======
       zip: params.zipcode === "" ? "65810" : params.zipcode,
->>>>>>> Elliott
       forecastIndex: []
     };
   }
 
   componentDidMount() {
     this.getDataWrapper();
+    this.render();
   }
 
-  componentDidCatch() {}
+  componentDidCatch() {
+    this.setState({ error: true, loaded: true });
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
@@ -43,31 +45,26 @@ class UVIndex extends React.Component {
         this.getForecast();
       })
       .catch(e => {
-        let state = this.state;
-        state.error = true;
-        state.loaded = true;
-        this.setState(state);
+        this.setState({ error: true, loaded: true });
       });
   }
 
   getLatLon() {
     return new Promise((res, rej) => {
       fetch(
-        this.state.zipUrl + this.props.zip + ",us&appid=" + this.state.apiKey
+        this.state.zipUrl + this.state.zip + ",us&appid=" + this.state.apiKey
       )
         .then(resp => resp.json())
         .then(data => {
-          let state = this.state;
-          state.latitude = data.coord.lat;
-          state.longitute = data.coord.lon;
-          state.error = false;
-          this.setState(state);
+          this.setState({
+            loaded: true,
+            latitute: data.coord.lat,
+            longitute: data.coord.long
+          });
           res();
         })
         .catch(e => {
-          let state = this.state;
-          state.error = true;
-          this.setState(state);
+          this.setState({ error: true, loaded: true });
           rej();
         });
     });
@@ -86,26 +83,36 @@ class UVIndex extends React.Component {
       )
         .then(resp => resp.json())
         .then(data => {
-          let currState = this.state;
-          currState.forecastIndex = data;
-          currState.loaded = true;
-          currState.error = false;
-          this.setState(currState);
+          this.setState({ error: false, loaded: true });
           res();
         })
         .catch(e => {
-          let state = this.state;
-          state.error = true;
-          state.loaded = true;
-          this.setState(state);
+          this.setState({ error: true, loaded: true });
           rej();
         });
     });
   }
 
   render() {
-    const { error, loaded } = this.state;
-    if (error) {
+    if (this.state.error) {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <Table>
+                <tbody>
+                  <tr>
+                    <td className="center">
+                      Failed to load UV Index information.
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else if (!this.state.loaded) {
       return (
         <Container>
           <Row>
@@ -116,22 +123,6 @@ class UVIndex extends React.Component {
                     <td className="center">
                       <img src={require("./loading.gif")} alt="Loading" />
                     </td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
-        </Container>
-      );
-    } else if (!loaded) {
-      return (
-        <Container>
-          <Row>
-            <Col>
-              <Table>
-                <tbody>
-                  <tr>
-                    <td>Failed to load UV Index information.</td>
                   </tr>
                 </tbody>
               </Table>

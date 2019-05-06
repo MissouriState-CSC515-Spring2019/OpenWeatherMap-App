@@ -108,7 +108,7 @@ class MyComponent extends React.Component {
     return (
       <Router history={history}>
         <Container>
-          <Navbar class="navbar" color="light" light expand="lg">
+          <Navbar className="navbar" color="light" light expand="lg">
             <NavbarBrand id="icon" href="/">
               The Weather App
             </NavbarBrand>
