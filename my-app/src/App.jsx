@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import {
   Container,
   Row,
@@ -24,7 +25,9 @@ import {
 import './App.css';
 import FiveDay from './components/5-day-weather/5day';
 import UVIndex from "./components/UVIndex/UVIndex";
+import Weather from "./components/CurrentWeather/Weather";
 
+const history = createBrowserHistory();
 
 const ApiKey = '304b69dfc8fd594456d6556ba7d5be48';
 const zipcode = '65810';
@@ -35,14 +38,16 @@ const url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + zipcode + '
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
+    let url_zip = window.location.pathname.slice(window.location.pathname.lastIndexOf("/") + 1, window.location.pathname.length);
     this.state = {
       error: null,
       isLoaded: false,
+      redirect: false,
       key: ApiKey,
-      zip: zipcode,
+      zip: url_zip,
       items: null
     };
-
+    
     this.changeZip = this.changeZip.bind(this);
     this.updateData = this.updateData.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -55,7 +60,17 @@ class MyComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.updateData()
+    this.setState({
+      redirect: false
+    })
+  }
+
+  componentDidUpdate() {
+    if (this.state.redirect) {
+      this.setState({
+        redirect: false
+      })
+    }
   }
 
   changeZip(elem) {
@@ -68,42 +83,33 @@ class MyComponent extends React.Component {
   }
 
   updateData(elem) {
-    this.setState({
-      isLoaded: false,
-      error: null
-    });
-    if (elem) {
-      elem.preventDefault();
+    elem.preventDefault();
+    if (this.state.zip.length !== 5) {
+      alert("Ivalid zip code");
+      return;
     }
+    
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&appid=${this.state.key}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(
-        (result) => {
-          //console.log(result)
-          this.setState({
-            isLoaded: true,
-            items: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    this.setState({
+      redirect: true
+    })
   }
 
   render() {
-
+    if (this.state.redirect) {
+      let new_route = window.location.pathname;
+      new_route = new_route.slice(0, new_route.lastIndexOf("/")) + "/" + this.state.zip;
+      
+      return (
+        <Router>
+          <Route>
+            <Redirect to={new_route} />
+          </Route>
+        </Router>
+      )
+    }
     return (
-      <Router>
+      <Router history={history}>
         <Container>
           <Navbar color="light" light expand="lg">
             <NavbarBrand href="/">The Weather App</NavbarBrand>
@@ -125,22 +131,31 @@ class MyComponent extends React.Component {
                 </Form>
               </NavItem>
               <NavItem>
-                <NavLink><Link to="/">Current Weather</Link></NavLink>
+                <NavLink><Link to={"/currentweather/" + this.state.zip}>Current Weather</Link></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink><Link to="/forecast">5 Day Forecast</Link></NavLink>
+                <NavLink><Link to={"/forecast/" + this.state.zip}>5 Day Forecast</Link></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink><Link to="/uv">UV</Link></NavLink>
+                <NavLink><Link to={"/uv/" + this.state.zip}>UV</Link></NavLink>
               </NavItem>
             </Nav>
           </Navbar>
         
 
           <Switch>
-            <Route path="/" exact />
+            <Route path="/" exact render={() => (
+              <Redirect to="/currentweather/65810"/>
+            )}/>
+            <Route path="/currentweather/:zipcode" component={Weather} />
+            <Route path="/forecast/" exact render={() => (
+              <Redirect to="/forecast/65810"/>
+            )}/>
             <Route path="/forecast/:zipcode" component={FiveDay}/>
-            <Route path="/UV" component={UVIndex} />
+            <Route path="/UV/" exact render={() => (
+              <Redirect to="/UV/65810"/>
+            )}/>
+            <Route path="/UV/:zipcode" component={UVIndex} />
           </Switch>
         </Container>
       </Router>

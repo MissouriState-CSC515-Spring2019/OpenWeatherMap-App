@@ -1,0 +1,22 @@
+.cityName{
+    padding-top:30px;
+}
+
+
+.tableWell{
+    background-color: #F8F9FA;
+    border-radius: 5px;
+}
+
+.capitalize{
+    text-transform: capitalize;
+}
+
+.weatherIcon{
+    font-family: "helvetica";
+    font-size: 45px;
+}
+.weatherIcon, img{
+    width: 150px;
+    height: 150px;
+}
