@@ -14,7 +14,6 @@ class UVIndex extends React.Component {
       loaded: false,
       latitude: "",
       longitute: "",
-      zip: properties.zip,
       forecastIndex: []
     };
   }
@@ -23,32 +22,47 @@ class UVIndex extends React.Component {
     this.getDataWrapper();
   }
 
+  componentDidCatch() {}
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.getDataWrapper();
+      this.render();
+    }
+  }
+
   getDataWrapper() {
     this.getLatLon()
       .then(() => {
         this.getForecast();
       })
       .catch(e => {
-        throw new Error(e);
+        let state = this.state;
+        state.error = true;
+        state.loaded = true;
+        this.setState(state);
       });
   }
 
   getLatLon() {
     return new Promise((res, rej) => {
       fetch(
-        this.state.zipUrl + this.state.zip + ",us&appid=" + this.state.apiKey
+        this.state.zipUrl + this.props.zip + ",us&appid=" + this.state.apiKey
       )
         .then(resp => resp.json())
         .then(data => {
           let state = this.state;
           state.latitude = data.coord.lat;
           state.longitute = data.coord.lon;
+          state.error = false;
           this.setState(state);
           res();
         })
         .catch(e => {
+          let state = this.state;
+          state.error = true;
+          this.setState(state);
           rej();
-          throw new Error(e);
         });
     });
   }
@@ -69,12 +83,16 @@ class UVIndex extends React.Component {
           let currState = this.state;
           currState.forecastIndex = data;
           currState.loaded = true;
+          currState.error = false;
           this.setState(currState);
           res();
         })
         .catch(e => {
+          let state = this.state;
+          state.error = true;
+          state.loaded = true;
+          this.setState(state);
           rej();
-          throw new Error(e);
         });
     });
   }
@@ -82,9 +100,39 @@ class UVIndex extends React.Component {
   render() {
     const { error, loaded } = this.state;
     if (error) {
-      return <div>Something went wrong.</div>;
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <Table>
+                <tbody>
+                  <tr>
+                    <td className="center">
+                      <img src={require("./loading.gif")} alt="Loading" />
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+      );
     } else if (!loaded) {
-      return <div>Loading gif stuff goes here.</div>;
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <Table>
+                <tbody>
+                  <tr>
+                    <td>Failed to load UV Index information.</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+      );
     } else {
       return (
         <Container>
