@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Container, Row, Card, Col, Table} from 'reactstrap';
+import React from "react";
+import { Card, Table} from 'reactstrap';
 import "./5day.css";
 
 class FiveDay extends React.Component {

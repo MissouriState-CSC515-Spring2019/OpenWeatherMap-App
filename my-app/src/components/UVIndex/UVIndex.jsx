@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./UVIndex.css";
 import "./sun.jpeg";
 import { Table, Card, Row, Col, Container } from "reactstrap";
