@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Card} from "reactstrap";
+import { Container, Row, Card, Col, Table} from 'reactstrap';
 import "./5day.css";
 
 class FiveDay extends React.Component {
@@ -114,25 +114,25 @@ class FiveDay extends React.Component {
                 
                 return (
                     <div className="mainContainer">
-                        <Card>
-                            <table className="weatherTable">
-                                <thead>Five Day Forcast for {this.state.items.city.name}</thead>
-                                
+                    <div className="topPad"></div>
+                        <Card className="padding">
+                            <h2>Five Day Forecast for: {this.state.items.city.name}</h2>
+                            <Table className="weatherTable" borderless>
                                 <tbody>
                                     <tr className="forcastDaysRow">
                                         {Array.from(weatherMap.keys()).map(key => {
                                             return (
                                                 <td>
+                                                    <tr className="center">{key}</tr>
                                                     <tr>{this.getIcon(weatherMap.get(key)[1])}</tr>
-                                                    <tr>{key}</tr>
-                                                    <tr>High: {Math.max(...weatherMap.get(key)[0])}</tr>
-                                                    <tr>Low: {Math.min(...weatherMap.get(key)[0])}</tr>
+                                                    <tr className="center">High: {Math.max(...weatherMap.get(key)[0])}&#176;</tr>
+                                                    <tr className="center">Low: {Math.min(...weatherMap.get(key)[0])}&#176;</tr>
                                                 </td>
                                             )
                                         })}
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
                         </Card>
                     </div>
                 );
