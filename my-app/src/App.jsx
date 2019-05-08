@@ -140,7 +140,7 @@ class MyComponent extends React.Component {
           </Navbar>
 
           <Switch>
-            <Route path="/" exact render={() => (
+            <Route path="/:zipcode" exact render={() => (
               <Redirect to="/currentweather/65810"/>
             )}/>
             <Route path="/currentweather/:zipcode" component={Weather} />

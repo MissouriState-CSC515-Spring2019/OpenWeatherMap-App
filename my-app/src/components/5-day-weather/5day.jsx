@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {Card} from "reactstrap";
+import "./5day.css";
 
 class FiveDay extends React.Component {
 
@@ -15,8 +17,61 @@ class FiveDay extends React.Component {
         };
     }
 
+    componentConvertTemp(temp){
+        return Math.round((parseInt(temp, 10) - 273.15) * (9/5) + 32);
+    }
+
     componentDidMount() {
         this.update()
+    }
+
+    getIcon(iconId) {
+
+        if (iconId > 199 && iconId < 300) {
+            //thunderstorm
+            return <img src="http://openweathermap.org/img/w/11d.png" alt="Thunderstorm thumbnail" />
+            // return "11d";
+
+        } else if (iconId > 299 && iconId < 400) {
+            // drizzle
+            return <img src="http://openweathermap.org/img/w/09d.png" alt="Drizzle thumbnail" />
+            // return "09d";
+
+        } else if (iconId > 499 && iconId < 600) {
+            // rain
+            return <img src="http://openweathermap.org/img/w/10d.png" alt="Rain thumbnail" />
+            // return "10d";
+
+        } else if (iconId > 599 && iconId < 700) {
+            // snow
+            return <img src="http://openweathermap.org/img/w/13d.png" alt="Snow thumbnail" />
+            // return "13d";
+
+        } else if (iconId > 699 && iconId < 800) {
+            // atmosphere
+            return <img src="http://openweathermap.org/img/w/50d.png" alt="Atmosphere related weather condition thumbnail" />
+            // return "50d";
+
+        } else if (iconId === 800) {
+            // clear
+            return <img src="http://openweathermap.org/img/w/01d.png" alt="Sunny thumbnail" />
+            // return "01d";
+
+        } else if (iconId === 801) {
+            // some clouds
+            return <img src="http://openweathermap.org/img/w/02d.png" alt="Light-to-no Clouds thumbnail" />
+            // return "02d";
+
+        } else if (iconId === 802) {
+            // more clouds
+            return <img src="http://openweathermap.org/img/w/03d.png" alt="medium clouds thumbnail" />
+            // return "03d";
+
+        } else {
+            // all the clouds
+            return <img src="http://openweathermap.org/img/w/04d.png" alt="Very Cloudy thumbnail" />
+            // return "04d";
+        }
     }
 
     update() {
@@ -40,11 +95,45 @@ class FiveDay extends React.Component {
             return <div>Loading...</div>;
         } else {
             if(this.state.items.cod === "200"){
+                var weatherMap = new Map();
+                var days = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
+
+                //Mapping 5 day forcast temps together for average calcs
+                this.state.items.list.forEach(el => {
+                    console.log(el);
+                    var date = new Date(el.dt_txt);
+                    var day = days[date.getDay()];
+                    if(!weatherMap.get(day)){
+                        weatherMap.set(day, [[this.componentConvertTemp(el.main.temp)], el.weather[0].id]);
+                    }else{
+                        var currentList = weatherMap.get(day);
+                        currentList[0].push(this.componentConvertTemp(el.main.temp));
+                    }
+                });
+
+                
                 return (
-                    <div>
-                        <p>Testing response data (temp):</p>
-                        <div>{this.state.items.list[0].main.temp}</div>
-                        <div>{this.state.items.city.name}</div>
+                    <div className="mainContainer">
+                        <Card>
+                            <table className="weatherTable">
+                                <thead>Five Day Forcast for {this.state.items.city.name}</thead>
+                                
+                                <tbody>
+                                    <tr className="forcastDaysRow">
+                                        {Array.from(weatherMap.keys()).map(key => {
+                                            return (
+                                                <td>
+                                                    <tr>{this.getIcon(weatherMap.get(key)[1])}</tr>
+                                                    <tr>{key}</tr>
+                                                    <tr>High: {Math.max(...weatherMap.get(key)[0])}</tr>
+                                                    <tr>Low: {Math.min(...weatherMap.get(key)[0])}</tr>
+                                                </td>
+                                            )
+                                        })}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </Card>
                     </div>
                 );
             } else if (this.state.items.cod === "404"){
