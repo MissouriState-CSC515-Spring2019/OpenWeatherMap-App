@@ -108,7 +108,7 @@ class Weather extends React.Component {
             return (
                 <Container>
                     <div className="topPad"></div>
-                    <div className = "overall">
+                    <Card className="padding">
                         <Row className = "cityName">
                             <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
                         </Row>
@@ -142,7 +142,7 @@ class Weather extends React.Component {
                                     </tr>
                                 </tbody>
                             </Table>
-                        </div>
+                        </Card>
                     
                 </Container>
             );

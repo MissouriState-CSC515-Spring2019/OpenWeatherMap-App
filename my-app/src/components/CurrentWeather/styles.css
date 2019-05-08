@@ -1,8 +1,3 @@
-.cityName {
-    background-color: #F8F9FA;
-    border-radius: 5px;
-}
-
 .capitalize{
     text-transform: capitalize;
 }
@@ -16,8 +11,7 @@
     height: 150px;
 }
 
-.overall{
-    background-color: #F8F9FA;
+.Card{
     padding-bottom: 30px;
     padding-right: 20px;
     padding-left: 20px;
@@ -34,4 +28,8 @@
 
     font-family: "helvetica";
     font-size: 35px;
+}
+
+.padding{
+    padding: 2% 2% 2% 2%;
 }
