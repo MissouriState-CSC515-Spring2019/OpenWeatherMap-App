@@ -113,38 +113,12 @@ class Weather extends React.Component {
                             <Col><h1>Current Weather for: {this.state.items.name}</h1></Col>
                         </Row>
                         <Row>
-                            <Col xs="3"      className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)}</Col>
+                            <Col xs="3" className="weatherIcon">{this.componentGetIcon(this.state.items.weather[0].id)}</Col>
                             <Col className="capitalize">{this.componentConvertTemp(this.state.items.main.temp)}&#176;<br></br> {this.state.items.weather[0].description}</Col>
                             <Col></Col>
                             <Col></Col>
                         </Row>
-                        {/* <Row>
-                            <Col className="capitalize">{this.state.items.weather[0].description}</Col>
-                        </Row> */}
-                    
-                        {/* TIMS STUFF  */}
-                            {/* <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col> */}
-                        
-                            {/* TIMS STUFF  */}
-                                {/* <Col xs="auto">Temp {this.componentConvertTemp(this.state.items.main.temp)}</Col> */}
-                            
-                                    {/* <Row>{this.state.items.weather[0].main}</Row> */}
-                                    
-                                    
-                                    {/* <Row><img src ={"http://openweathermap.org/img/w/" + this.componentGetIcon(this.state.items.weather[0].id) + ".png"}/></Row> */}
-                            
-                            {/* <Row>
-                                <Col xs="auto" className="capitalize">{this.state.items.weather[0].description}</Col>
-                            </Row> */}
-                                {/* <Col>
-                                    <Row>Sunrise</Row>
-                                    <Row>{this.componentEpochConversion(this.state.items.sys.sunrise)}</Row>
-                                </Col>
-                                <Col>
-                                    <Row>Sunset</Row>
-                                    <Row>{this.componentEpochConversion(this.state.items.sys.sunset)}</Row>
-                                </Col> */}
-                            {/* END TIMS STUFF */}
+
                         
                             <Table className ="weatherTable"dark>
                                 <thead>
