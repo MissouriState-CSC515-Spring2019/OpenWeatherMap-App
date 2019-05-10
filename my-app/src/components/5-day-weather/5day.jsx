@@ -96,11 +96,11 @@ class FiveDay extends React.Component {
         } else {
             if(this.state.items.cod === "200"){
                 var weatherMap = new Map();
-                var days = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
+                var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
                 //Mapping 5 day forcast temps together for average calcs
                 this.state.items.list.forEach(el => {
-                    console.log(el);
+                    
                     var date = new Date(el.dt_txt);
                     var day = days[date.getDay()];
                     if(!weatherMap.get(day)){
@@ -122,11 +122,11 @@ class FiveDay extends React.Component {
                                     <tr className="forcastDaysRow">
                                         {Array.from(weatherMap.keys()).map(key => {
                                             return (
-                                                <td>
-                                                    <tr className="center">{key}</tr>
-                                                    <tr>{this.getIcon(weatherMap.get(key)[1])}</tr>
-                                                    <tr className="center">High: {Math.max(...weatherMap.get(key)[0])}&#176;</tr>
-                                                    <tr className="center">Low: {Math.min(...weatherMap.get(key)[0])}&#176;</tr>
+                                                <td className="forecastData" key={key}>
+                                                    <p className="center">{key}</p>
+                                                    <p>{this.getIcon(weatherMap.get(key)[1])}</p>
+                                                    <p className="center">High: {Math.max(...weatherMap.get(key)[0])}&#176;</p>
+                                                    <p className="center">Low: {Math.min(...weatherMap.get(key)[0])}&#176;</p>
                                                 </td>
                                             )
                                         })}
