@@ -1,18 +1,8 @@
-.cityName{
-    padding-top:30px;   
-}
-
-
-.tableWell{
-    background-color: #F8F9FA;
-    border-radius: 5px;
-}
-
 .capitalize{
     text-transform: capitalize;
 }
 
-.weatherIcon{   
+.weatherIcon{
     font-family: "helvetica";
     font-size: 45px;
 }
@@ -21,8 +11,7 @@
     height: 150px;
 }
 
-.overall{
-    background-color: #F8F9FA;
+.Card{
     padding-bottom: 30px;
     padding-right: 20px;
     padding-left: 20px;
@@ -34,3 +23,13 @@
     padding-bottom: 30px;
 }
 
+.capitalize{
+    padding-top: 15px;
+
+    font-family: "helvetica";
+    font-size: 35px;
+}
+
+.padding{
+    padding: 2% 2% 2% 2%;
+}

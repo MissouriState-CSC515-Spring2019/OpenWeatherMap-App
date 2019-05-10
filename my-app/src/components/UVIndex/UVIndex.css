@@ -3,15 +3,9 @@
 }
 
 .padding{
-    padding: 1% 1% 1% 1%;
+    padding: 2% 2% 2% 2%;
 }
 
-.table-color{
-    background-color: lightgrey;
-}
-
-Table, thead, th, tr, td{
-    border-color: black !important;
-    border-width: 1px !important;
-    border-style: solid !important;
+.topPad{
+    padding-bottom: 30px;
 }

@@ -1,0 +1,22 @@
+.topPad{
+    padding-bottom: 30px;
+}
+
+.padding{
+    padding: 1% 1% 1% 1%;
+}
+
+.center{
+    text-align: center;
+}
+
+table, td, p {
+    font-family: "helvetica";
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.forecastData{
+    color:white;
+    background-color: #343A40;
+}

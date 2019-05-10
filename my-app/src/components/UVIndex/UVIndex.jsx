@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import "./UVIndex.css";
 import "./sun.jpeg";
-import { Table, Row, Col, Container } from "reactstrap";
+import { Table, Card, Row, Col, Container } from "reactstrap";
 
 class UVIndex extends React.Component {
-  constructor(properties) {
-    super(properties);
+  constructor(props) {
+    super(props);
+    const { match: { params } } = this.props;
+
     this.state = {
       error: null,
       apiKey: "304b69dfc8fd594456d6556ba7d5be48",
@@ -14,7 +16,7 @@ class UVIndex extends React.Component {
       loaded: false,
       latitude: "",
       longitute: "",
-      zip: properties.zip,
+      zip: params.zipcode === "" ? "65810" : params.zipcode,
       forecastIndex: []
     };
   }
@@ -91,24 +93,21 @@ class UVIndex extends React.Component {
           <Row>
             <Col>
               <Row>
-                <Col>
-                  <div className="center padding">
-                    <img src={require("./sun.jpeg")} alt="sun" />
-                  </div>
-                </Col>
               </Row>
               <Row>
                 <Col>
+                <div className="topPad"></div>
+                <Card className="card">
                   <Row className="padding">
                     <Col>
                       <div className="center">
-                        <h3>Forecast UV Index Information</h3>
+                        <h2>Forecast UV Index Information</h2>
                       </div>
                     </Col>
                   </Row>
                   <Row className="padding">
                     <Col>
-                      <Table>
+                      <Table dark>
                         <thead>
                           <tr>
                             <th className="center">Date</th>
@@ -133,6 +132,7 @@ class UVIndex extends React.Component {
                       </Table>
                     </Col>
                   </Row>
+                  </Card>
                 </Col>
               </Row>
             </Col>
