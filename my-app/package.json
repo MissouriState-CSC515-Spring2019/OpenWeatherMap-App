@@ -4,12 +4,14 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "cypress": "^3.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-unit": "^3.0.3",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "yarn": "^1.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,7 +29,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^23.6.0",
     "mocha": "^6.1.4",
-    "nightmare": "^3.0.2"
+    "nightmare": "^3.0.2",
+    "react-test-renderer": "^16.8.6"
   }
 }

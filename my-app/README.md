@@ -5,6 +5,8 @@ This single page React app is using the OpenWeather Api to grab data and display
 
 *API can't handle more than 60 calls per minute! Please email dwc678@live.missouristate.edu if this is exceeded.*
 
+*Browser warnings due to ReactStrap NavLinks*
+
 View functionality
 
 1.) Current Weather View:
@@ -22,7 +24,11 @@ How To Install
 
 Unit Test
 - npm test
+- a to run all
 - q to quit
 
 End to end Test
-- 
+- run the command "npm start & wait-on http://localhost:3000; ./node_modules/.bin/cypress open"
+- Cypress should open a window for you
+- Next you click on the e2e_spec.js file, it should be the first option.
+- it will take a sec to load up the test but it should run by itself after you have clicked the test file
