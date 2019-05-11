@@ -6,7 +6,9 @@ import { Table, Card, Row, Col, Container } from "reactstrap";
 class UVIndex extends React.Component {
   constructor(props) {
     super(props);
-    const { match: { params } } = this.props;
+    const {
+      match: { params }
+    } = this.props;
 
     this.state = {
       error: null,
@@ -23,6 +25,18 @@ class UVIndex extends React.Component {
 
   componentDidMount() {
     this.getDataWrapper();
+    this.render();
+  }
+
+  componentDidCatch() {
+    this.setState({ error: true, loaded: true });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.getDataWrapper();
+      this.render();
+    }
   }
 
   getDataWrapper() {
@@ -31,7 +45,7 @@ class UVIndex extends React.Component {
         this.getForecast();
       })
       .catch(e => {
-        throw new Error(e);
+        this.setState({ error: true, loaded: true });
       });
   }
 
@@ -42,15 +56,16 @@ class UVIndex extends React.Component {
       )
         .then(resp => resp.json())
         .then(data => {
-          let state = this.state;
-          state.latitude = data.coord.lat;
-          state.longitute = data.coord.lon;
-          this.setState(state);
+          this.setState({
+            loaded: true,
+            latitude: data.coord.lat,
+            longitude: data.coord.lon
+          });
           res();
         })
         .catch(e => {
+          this.setState({ error: true, loaded: true });
           rej();
-          throw new Error(e);
         });
     });
   }
@@ -63,75 +78,108 @@ class UVIndex extends React.Component {
           "&lat=" +
           this.state.latitude +
           "&lon=" +
-          this.state.longitute +
+          this.state.longitude +
           "&cnt=8"
       )
         .then(resp => resp.json())
         .then(data => {
-          let currState = this.state;
-          currState.forecastIndex = data;
-          currState.loaded = true;
-          this.setState(currState);
+          this.setState({ error: false, loaded: true, forecastIndex: data });
           res();
         })
         .catch(e => {
+          this.setState({ error: true, loaded: true });
           rej();
-          throw new Error(e);
         });
     });
   }
 
   render() {
-    const { error, loaded } = this.state;
-    if (error) {
-      return <div>Something went wrong.</div>;
-    } else if (!loaded) {
-      return <div>Loading gif stuff goes here.</div>;
+    if (this.state.error) {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <Table>
+                <tbody className="table-color">
+                  <tr>
+                    <td className="center">
+                      Failed to load UV Index information. Please make sure the
+                      zip code is valid.
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else if (!this.state.loaded) {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <Table>
+                <tbody className="table-color">
+                  <tr>
+                    <td className="center">
+                      <div>Loading UV Index information.</div>
+                      <img
+                        className="roundedLoading"
+                        src={require("./loading.gif")}
+                        alt="Loading"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+      );
     } else {
       return (
         <Container>
           <Row>
             <Col>
-              <Row>
-              </Row>
+              <Row />
               <Row>
                 <Col>
-                <div className="topPad"></div>
-                <Card className="card">
-                  <Row className="padding">
-                    <Col>
-                      <div className="center">
-                        <h2>Forecast UV Index Information</h2>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="padding">
-                    <Col>
-                      <Table dark>
-                        <thead>
-                          <tr>
-                            <th className="center">Date</th>
-                            <th className="center">UV Index</th>
-                          </tr>
-                        </thead>
-                        <tbody className="table-color">
-                          {this.state.forecastIndex.map(item => {
-                            return (
-                              <tr>
-                                <td className="center">
-                                  {item.date_iso.substr(
-                                    0,
-                                    item.date_iso.indexOf("T")
-                                  )}
-                                </td>
-                                <td className="center">{item.value}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </Table>
-                    </Col>
-                  </Row>
+                  <div className="topPad" />
+                  <Card className="card">
+                    <Row className="padding">
+                      <Col>
+                        <div className="center">
+                          <h2>Forecast UV Index Information</h2>
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row className="padding">
+                      <Col>
+                        <Table dark>
+                          <thead>
+                            <tr>
+                              <th className="center">Date</th>
+                              <th className="center">UV Index</th>
+                            </tr>
+                          </thead>
+                          <tbody className="table-color">
+                            {this.state.forecastIndex.map(item => {
+                              return (
+                                <tr>
+                                  <td className="center">
+                                    {item.date_iso.substr(
+                                      0,
+                                      item.date_iso.indexOf("T")
+                                    )}
+                                  </td>
+                                  <td className="center">{item.value}</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </Table>
+                      </Col>
+                    </Row>
                   </Card>
                 </Col>
               </Row>
