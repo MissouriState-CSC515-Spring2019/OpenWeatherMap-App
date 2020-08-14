@@ -15,7 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '/src/components/CurrentWeather/Weather.jsx',
+      'my-app/App.jsx',
+      'my-app/index.js',
       'test/**/*.spec.js'
     ],
 
@@ -29,7 +30,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
     },
-
+    
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

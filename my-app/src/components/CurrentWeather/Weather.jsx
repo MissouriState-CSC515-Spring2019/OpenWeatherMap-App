@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Card, Col, Table} from 'reactstrap';
 import './styles.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class Weather extends React.Component {
 
